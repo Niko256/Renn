@@ -2,7 +2,6 @@ CompileFlags:
   Add:
     - -std=c++23
     - -fcoroutines
-    - -fconcepts
     - -Wall
     - -Wextra
     - -Wpedantic
