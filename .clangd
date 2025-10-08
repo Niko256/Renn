@@ -1,0 +1,41 @@
+CompileFlags:
+  Add:
+    - -std=c++23
+    - -fcoroutines
+    - -fconcepts
+    - -Wall
+    - -Wextra
+    - -Wpedantic
+    - c++
+  Remove:
+    - "-std=c++*"
+    - "-std=gnu++*"
+
+Index:
+  Background: Build
+  StandardLibrary: Yes
+
+Diagnostics:
+  ClangTidy:
+    Add:
+      - "modernize-*"
+      - "readability-*"
+      - "performance-*"
+      - "bugprone-*"
+    Remove:
+      - "modernize-use-trailing-return-type"
+  UnusedIncludes: Strict
+  MissingIncludes: Strict
+
+InlayHints:
+  Enabled: Yes
+  ParameterNames: Yes
+  DeducedTypes: Yes
+  Designators: Yes
+  BlockEnd: Yes
+
+Hover:
+  ShowAKA: true
+
+Completion:
+  AllScopes: true
