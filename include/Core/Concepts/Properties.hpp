@@ -1,8 +1,10 @@
 #pragma once
 
+#include <concepts>
+#include <optional>
 #include <type_traits>
 
-namespace comp::concepts::properties {
+namespace renn::core::concepts::properties {
 
 template <typename T>
 concept Pure =
@@ -31,6 +33,13 @@ concept Copyable =
 template <typename Func, typename... Args>
 concept Invokable = std::is_invocable_v<Func, Args...>;
 
+template <typename Func, typename T, typename U>
+concept Transformer = Invokable<Func, T, U> &&
+                      std::convertible_to<std::invoke_result_t<Func, T>, U>;
+
+template <typename Func, typename T, typename U>
+concept OptionalTransformer = Transformer<Func, T, std::optional<U>>;
+
 
 template <typename Func, typename... Args>
 concept NoThrowInvokable = Invokable<Func, Args...> && std::is_nothrow_invocable_v<Func, Args...>;
@@ -39,4 +48,9 @@ template <typename Func, typename Res, typename... Args>
 concept InvokableTo =
     Invokable<Func, Args...> && std::is_same_v<std::invoke_result_t<Func, Args...>, Res>;
 
-}  // namespace comp::concepts::properties
+
+template <typename T, typename... Funcs>
+concept ParallelTransforms = (std::invocable<Funcs, T> && ...);
+
+
+}  // namespace renn::core::concepts::properties

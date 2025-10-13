@@ -4,7 +4,7 @@
 #include <concepts>
 #include <type_traits>
 
-namespace comp::concepts::expressions {
+namespace renn::core::concepts::expressions {
 
 template <typename E>
 concept Expr = requires(const E& expr) {
@@ -53,4 +53,4 @@ concept NaryOpExpr =
         typename E::input_types_;
     };
 
-}  // namespace comp::concepts::expressions
+}  // namespace renn::core::concepts::expressions

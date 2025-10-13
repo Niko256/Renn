@@ -2,9 +2,13 @@
 
 #include "../visitor.hpp"
 
+namespace renn::ast::nodes {
+
 class BaseNode {
   public:
     virtual ~BaseNode() = default;
 
-    virtual void accept(IVisitor& visitor) = 0;
+    virtual void accept(AstVisitor& visitor) = 0;
 };
+
+}  // namespace renn::ast::nodes

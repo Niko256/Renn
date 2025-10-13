@@ -1,5 +1,8 @@
 #pragma once
 
-class IVisitor {
+namespace renn::ast {
+
+class AstVisitor {
   private:
 };
+}  // namespace renn::ast
