@@ -1,11 +1,21 @@
 #pragma once
 
+#include "../Ast/Nodes/BaseNode.hpp"
+#include <memory>
+
 namespace renn::core {
+
+using namespace renn::ast;
 
 template <typename T>
 class Expression {
+  private:
+    std::shared_ptr<BaseNode> ast_node_;
+
 
   public:
+    using result_type_ = T;
+
     /*
      * [ API ] :
      */

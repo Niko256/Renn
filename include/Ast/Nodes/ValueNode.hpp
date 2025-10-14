@@ -4,7 +4,7 @@
 #include "BaseNode.hpp"
 #include <algorithm>
 
-namespace renn::ast::nodes {
+namespace renn::ast {
 
 
 template <typename ValueType>
@@ -21,4 +21,4 @@ class ValueNode : public BaseNode {
 
     void accept(AstVisitor& visitor) override;
 };
-}  // namespace renn::ast::nodes
+}  // namespace renn::ast

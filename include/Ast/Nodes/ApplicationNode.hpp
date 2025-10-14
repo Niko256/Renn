@@ -1,18 +1,21 @@
 #pragma once
 
+#include "../../Core/Concepts/Expressions.hpp"
+#include "../Nodes/BaseNode.hpp"
 #include "../visitor.hpp"
-#include "BaseNode.hpp"
 
-namespace renn::ast::nodes {
+namespace renn::ast {
 
-template <typename U, typename InputExpr, typename Func>
+using namespace renn::core::concepts;
+
+template <typename U, expressions::Expr PrevNode, properties::Invokable<U> Func>
 class ApplicationNode : public BaseNode {
   private:
-    InputExpr input_;
+    PrevNode input_;
     Func functor_;
 
   public:
     void accept(AstVisitor& visitor) override;
 };
 
-}  // namespace renn::ast::nodes
+}  // namespace renn::ast
