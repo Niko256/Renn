@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../Ast/visitor.hpp"
+#include "../Ast/visitor.hpp"
 
 namespace renn::execution {
 

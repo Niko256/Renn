@@ -19,6 +19,7 @@ class ValueNode : public BaseNode {
 
     void set_value(ValueType value);
 
+    /* Method that tell Visitor about *this Node*/
     void accept(AstVisitor& visitor) override;
 };
 }  // namespace renn::ast

@@ -2,7 +2,6 @@
 
 #include "Properties.hpp"
 #include <concepts>
-#include <type_traits>
 
 namespace renn::core::concepts::expressions {
 

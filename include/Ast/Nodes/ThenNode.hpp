@@ -1,16 +1,18 @@
 #pragma once
 
-#include "../../Core/Concepts/Expressions.hpp"
+#include "../../Core/Concepts/Properties.hpp"
 #include "../Nodes/BaseNode.hpp"
 #include "../visitor.hpp"
+#include <memory>
 
 namespace renn::ast {
 
 using namespace renn::core::concepts;
 
-template <typename U, expressions::Expr PrevNode, properties::Invokable<U> Func>
-class ApplicationNode : public BaseNode {
+template <typename U, typename PrevNode, properties::Invokable<U> Func>
+class ThenNode : public BaseNode {
   private:
+    /* => Each new node stores shared_ptr of the previous one */
     PrevNode input_;
     Func functor_;
 
