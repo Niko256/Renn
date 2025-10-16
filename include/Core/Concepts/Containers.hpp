@@ -2,7 +2,6 @@
 
 #include <concepts>
 #include <iterator>
-#include <type_traits>
 
 namespace renn::core::concepts::containers {
 

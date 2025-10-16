@@ -3,7 +3,6 @@
 namespace renn::ast {
 
 class AstVisitor {
-  private:
   public:
     virtual ~AstVisitor() = default;
 

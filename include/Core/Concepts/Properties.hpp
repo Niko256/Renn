@@ -6,6 +6,10 @@
 
 namespace renn::core::concepts::properties {
 
+/*
+ * this concept represents pure value type
+ * ???
+ */
 template <typename T>
 concept Pure =
     std::is_nothrow_copy_constructible_v<T> &&
@@ -15,7 +19,6 @@ concept Pure =
         requires !std::is_pointer_v<T>;
         requires !std::is_reference_v<T>;
     };
-
 
 template <typename T>
 concept Movable =
@@ -33,12 +36,17 @@ concept Copyable =
 template <typename Func, typename... Args>
 concept Invokable = std::is_invocable_v<Func, Args...>;
 
-template <typename Func, typename T, typename U>
-concept Transformer = Invokable<Func, T, U> &&
-                      std::convertible_to<std::invoke_result_t<Func, T>, U>;
+/*
+ * Type that satisfies these constraints represents type
+ * that can be transformed to some resulting type U
+ * as a result of applying functor Func with Input-typed argument
+ */
+template <typename Func, typename InputType, typename TransformedType>
+concept Transformer = Invokable<Func, InputType, TransformedType> &&
+                      std::convertible_to<std::invoke_result_t<Func, InputType>, TransformedType>;
 
-template <typename Func, typename T, typename U>
-concept OptionalTransformer = Transformer<Func, T, std::optional<U>>;
+template <typename Func, typename InputType, typename TransformedType>
+concept OptionalTransformer = Transformer<Func, InputType, std::optional<TransformedType>>;
 
 
 template <typename Func, typename... Args>

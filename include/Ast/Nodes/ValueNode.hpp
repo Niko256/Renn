@@ -1,15 +1,19 @@
 #pragma once
 
+#include "../../Core/Concepts/Properties.hpp"
 #include "../visitor.hpp"
 #include "BaseNode.hpp"
 #include <algorithm>
 
 namespace renn::ast {
 
+using namespace core::concepts;
 
-template <typename ValueType>
+template <properties::Pure ValueType>
 class ValueNode : public BaseNode {
   private:
+    using result_type_ = ValueType;
+
     ValueType value_;
 
   public:
