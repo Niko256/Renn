@@ -37,9 +37,7 @@ template <typename Func, typename... Args>
 concept Invokable = std::is_invocable_v<Func, Args...>;
 
 /*
- * Type that satisfies these constraints represents type
- * that can be transformed to some resulting type U
- * as a result of applying functor Func with Input-typed argument
+ * How to describe these restrictions in formal way?
  */
 template <typename Func, typename InputType, typename TransformedType>
 concept Transformer = Invokable<Func, InputType, TransformedType> &&
@@ -51,10 +49,6 @@ concept OptionalTransformer = Transformer<Func, InputType, std::optional<Transfo
 
 template <typename Func, typename... Args>
 concept NoThrowInvokable = Invokable<Func, Args...> && std::is_nothrow_invocable_v<Func, Args...>;
-
-template <typename Func, typename Res, typename... Args>
-concept InvokableTo =
-    Invokable<Func, Args...> && std::is_same_v<std::invoke_result_t<Func, Args...>, Res>;
 
 
 template <typename T, typename... Funcs>

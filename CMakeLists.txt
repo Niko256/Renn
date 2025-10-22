@@ -5,9 +5,6 @@ project(Renn LANGUAGES CXX)
 SET(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 set(RENN_SRC
-  src/Ast/Nodes/ApplicationNode.cc
-  src/Ast/Nodes/ValueNode.cc
-  src/Ast/visitor.cc
   src/Core/Expr.cc
   src/Execution/AsyncExec.cc
   src/Execution/SyncExec.cc

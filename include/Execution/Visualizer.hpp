@@ -1,11 +1,8 @@
 #pragma once
 
-#include "../Ast/visitor.hpp"
-
 namespace renn::execution {
 
-class Visualizer : public ast::AstVisitor {
-};
+class Visualizer {};
 
 
 }  // namespace renn::execution

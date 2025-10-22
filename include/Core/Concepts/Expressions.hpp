@@ -2,7 +2,6 @@
 
 #include "Properties.hpp"
 #include <concepts>
-#include <future>
 
 namespace renn::core::concepts::expressions {
 
@@ -11,12 +10,6 @@ concept Expr = requires(const E& expr) {
     typename E::result_type_;
 
     requires properties::Copyable<E>;
-};
-
-template <typename E>
-concept EvaluableExpr = Expr<E> && requires(const E& expr) {
-    { expr.eval() } -> std::same_as<typename E::result_type_>;
-    { expr.async_eval() } -> std::convertible_to<std::future<typename E::result_type_>>;
 };
 
 
