@@ -1,7 +1,6 @@
 #pragma once
 
 #include <concepts>
-#include <optional>
 #include <type_traits>
 
 namespace renn::core::concepts::properties {
@@ -36,23 +35,16 @@ concept Copyable =
 template <typename Func, typename... Args>
 concept Invokable = std::is_invocable_v<Func, Args...>;
 
+template <typename Func, typename... Args>
+concept NoThrowInvokable = Invokable<Func, Args...> && std::is_nothrow_invocable_v<Func, Args...>;
+
+
 /*
  * How to describe these restrictions in formal way?
  */
 template <typename Func, typename InputType, typename TransformedType>
 concept Transformer = Invokable<Func, InputType, TransformedType> &&
                       std::convertible_to<std::invoke_result_t<Func, InputType>, TransformedType>;
-
-template <typename Func, typename InputType, typename TransformedType>
-concept OptionalTransformer = Transformer<Func, InputType, std::optional<TransformedType>>;
-
-
-template <typename Func, typename... Args>
-concept NoThrowInvokable = Invokable<Func, Args...> && std::is_nothrow_invocable_v<Func, Args...>;
-
-
-template <typename T, typename... Funcs>
-concept ParallelTransforms = (std::invocable<Funcs, T> && ...);
 
 
 }  // namespace renn::core::concepts::properties
