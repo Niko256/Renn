@@ -7,7 +7,7 @@ namespace renn::core::concepts::expressions {
 
 template <typename E>
 concept Expr = requires(const E& expr) {
-    typename E::result_type_;
+    typename E::output_type_;
 
     requires properties::Copyable<E>;
 };
@@ -15,8 +15,8 @@ concept Expr = requires(const E& expr) {
 
 template <typename E>
 concept ValueExpr = Expr<E> && requires(const E& expr) {
-    requires std::constructible_from<E, typename E::result_type_>;
-    { expr.value() } -> std::same_as<const typename E::result_type_&>;
+    requires std::constructible_from<E, typename E::output_type_>;
+    { expr.value() } -> std::same_as<const typename E::output_type_&>;
 };
 
 

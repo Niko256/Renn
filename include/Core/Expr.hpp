@@ -1,12 +1,10 @@
 #pragma once
 
+#include "Common.hpp"
 #include "Nodes/BaseNode.hpp"
-#include <expected>
-#include <functional>
 #include <future>
 #include <memory>
 #include <tuple>
-#include <type_traits>
 #include <vector>
 
 namespace renn::core {
@@ -18,13 +16,11 @@ class Expression {
     std::shared_ptr<BaseNode> node_;
 
   public:
-    using result_type_ = T;
+    using output_type_ = T;
 
-    template <typename Ok, typename Err>
-    virtual details::Result<Ok, Err> Eval() = 0;
+    virtual renn::core::common::Result<T> Eval() = 0;
 
-    template <typename Ok, typename Err>
-    virtual std::future<details::Result<Ok, Err>> AsyncEval() = 0;
+    virtual std::future<common::Result<T>> AsyncEval() = 0;
 
     /*
      * [ COMBINATORS ] :
@@ -36,7 +32,7 @@ class Expression {
 
     /* Then: Expression<T> -> (T -> R) -> Expression<R> */
     template <typename PrevExpr, typename F>
-    auto Then(F&& func) const -> Expression<details::result_type<F>>;
+    auto Then(F&& func) const -> Expression<common::output_type<F>>;
 
     /* Every : Expression<T> -> (T -> R1) × ... × (T -> Rn) -> Expression<tuple<R1, ... , Rn>> */
     template <typename... Fs>
@@ -78,15 +74,15 @@ class Expression {
 
     /* All : Expression<T> -> vector<(T -> R)> -> Expression<vector<R>> */
     template <typename F>
-    auto All(F&& func) -> Expression<std::vector<details::result_type<F>>>;
+    auto All(F&& func) -> Expression<std::vector<common::output_type<F>>>;
 
     /* Any : Expression<T> -> vector<(T -> optional<R>)> -> Expression<R> */
     template <typename F>
-    auto Any(F&& func) -> Expression<details::result_type<F>>;
+    auto Any(F&& func) -> Expression<common::output_type<F>>;
 
     /* Project : Expression<tuple<T_1,...,T_n>> -> (optional<(T_1 -> R_1)>, ..., optional<(T_n -> R_n)>) -> Expression<tuple<R_j,...>> */
     template <typename... Ts, typename F>
-    auto Project(F&& func) -> Expression<std::tuple<details::result_type<F, Ts>>...>;
+    auto Project(F&& func) -> Expression<std::tuple<common::output_type<F, Ts>>...>;
 
     /* JoinValues : Expression<tuple<T_1,...,T_n>> -> (R_1, ..., R_m) -> Expression<tuple<T_1,...,T_n, R_1,...,R_m>>
      * ??? [TO-DO] :: write signature [how to combine Ts... and Rs...]?
