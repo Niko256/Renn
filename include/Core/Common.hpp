@@ -6,13 +6,14 @@
 #include <stdexcept>
 #include <string>
 #include <type_traits>
+#include <vector>
 
 namespace renn::core::common {
 
 struct Error;
 
 template <typename F, typename... Args>
-using output_type = std::invoke_result_t<F, Args...>;
+using R = std::invoke_result_t<F, Args...>;
 
 template <typename Ok>
 using Result = std::expected<Ok, Error>;
@@ -24,6 +25,7 @@ struct Error {
     std::string message_;
     std::string category_;
     std::exception_ptr exception_;
+    std::vector<std::string> context_;
 
     template <typename E>
     static Error from(E&& err) {

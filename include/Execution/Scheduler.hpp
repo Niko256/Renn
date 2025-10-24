@@ -14,7 +14,7 @@ class Task {
     bool is_ready() const;
 };
 
-class Scheduler {
+class TaskScheduler {
   private:
     /* *std::unordered_map<NodeId, Task> task_pool_; */
     /* ThreadPool */
