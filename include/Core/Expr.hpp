@@ -13,11 +13,9 @@ namespace renn::core {
 template <typename T>
 class Expression {
   private:
-    std::shared_ptr<BaseNode<T>> root_;
+    std::shared_ptr<nodes::BaseNode<T>> root_;
 
   public:
-    using R_ = T;
-
     renn::core::common::Result<T> Eval() = 0;
 
     std::future<common::Result<T>> AsyncEval() = 0;

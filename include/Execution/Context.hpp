@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Scheduler.hpp"
+#include "Executor.hpp"
 #include <memory>
 
 namespace renn::execution {
@@ -8,8 +8,11 @@ namespace renn::execution {
 
 class ExecutionContext {
   private:
-    std::shared_ptr<TaskScheduler> scheduler_;
+    IExecutor* executor_;
+    std::shared_ptr<TaskGraph> graph_;
     ErrorHandler handler_;
+
+    struct SharedState {};
 };
 
 
