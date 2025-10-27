@@ -5,10 +5,7 @@ project(Renn LANGUAGES CXX)
 SET(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 set(RENN_SRC
-  src/Core/Expr.cc
-  src/Execution/AsyncExec.cc
-  src/Execution/SyncExec.cc
-  src/Execution/Optimize.cc
+  src/Runtime/Scheduler.cc
 )
 
 ADD_LIBRARY(Renn STATIC ${RENN_SRC})
