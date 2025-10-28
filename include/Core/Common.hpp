@@ -2,6 +2,7 @@
 
 #include <exception>
 #include <expected>
+#include <functional>
 #include <sstream>
 #include <stdexcept>
 #include <string>
@@ -20,6 +21,9 @@ using Result = std::expected<Ok, Error>;
 
 template <typename E>
 using Err = std::unexpected<E>;
+
+template <typename T>
+using Callback = std::function<void(Result<T>)>;
 
 struct Error {
     std::string message_;

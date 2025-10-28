@@ -6,19 +6,11 @@
 
 using namespace renn;
 
-namespace renn::execution {
+namespace renn::core {
 
 template <typename T>
 class Future {
   private:
-    struct SharedState {
-        renn::core::common::Result<T> res_;
-        std::atomic<bool> ready_;
-        /* IExecutor* executor_; */
-    };
-
-    std::shared_ptr<SharedState> state_;
-
   public:
     template <typename F>
     Future<core::common::R<F, T>> then(F&& callback);
@@ -34,6 +26,14 @@ class Future {
     auto Spawn() -> Future<core::common::R<F>>;
 
     bool is_ready() const;
+
+    T get();
+
+    void check_state();
+
+    auto release_state();
 };
 
-};  // namespace renn::execution
+};  // namespace renn::core
+
+#include "Future_inl.hpp"

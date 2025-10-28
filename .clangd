@@ -5,7 +5,7 @@ CompileFlags:
     - -Wall
     - -Wextra
     - -Wpedantic
-    - c++
+    - -x c++-header
   Remove:
     - "-std=c++*"
     - "-std=gnu++*"
